@@ -7,7 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { RouterLink } from '@angular/router';
 import { ActorCreacionDTO, ActorDTO } from '../actores';
 import moment from 'moment';
-import { fechaNoPuedeSerFutura } from '../../compartidos/funciones/validaciones';
+import { fechaNoPuedeSerFutura, primeraLetraMayuscula } from '../../compartidos/funciones/validaciones';
 import { InputImgComponent } from "../../compartidos/componentes/input-img/input-img.component";
 
 @Component({
@@ -33,7 +33,7 @@ export class FormularioActoresComponent implements OnInit{
 
   form = this.formBuilder.group({
     nombre: ['', {
-      validators: [Validators.required]
+      validators: [Validators.required, primeraLetraMayuscula()]
     }], 
     fechaNacimiento: new FormControl<Date | null>(null,{
       validators: [Validators.required, fechaNoPuedeSerFutura()]
@@ -47,7 +47,10 @@ export class FormularioActoresComponent implements OnInit{
     if (campo.hasError('required')){
       return 'El campo nombre es requerido';
     }
-
+    if (campo.hasError('primeraLetraMayuscula')){
+      return campo.getError('primeraLetraMayuscula').mensaje
+    }
+    
     return "";
 
   }
