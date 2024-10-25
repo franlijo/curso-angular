@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { PeliculasCreacionDTO } from '../../peliculas/peliculas';
 import { FormularioPeliculasComponent } from "../../peliculas/formulario-peliculas/formulario-peliculas.component";
 import { SelectorMultipleDTO } from '../../compartidos/componentes/selector-multiple/SelectorMultipleModelo';
+import { actorAutocompleteDTO } from '../../actores/actores';
 
 @Component({
   selector: 'app-crear-pelicula',
@@ -28,7 +29,7 @@ export class CrearPeliculaComponent {
     {llave: 3, valor: "Acropolis"}
   ]
 
-
+  actoresSeleccionados: actorAutocompleteDTO[] = [];
 
   guardarCambios(pelicula: PeliculasCreacionDTO){
     console.log('Creando pelicula', pelicula);

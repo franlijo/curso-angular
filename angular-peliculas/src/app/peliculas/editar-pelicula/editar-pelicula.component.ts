@@ -2,6 +2,7 @@ import { Component, Input, numberAttribute } from '@angular/core';
 import { PeliculaDTO, PeliculasCreacionDTO } from '../peliculas';
 import { FormularioPeliculasComponent } from "../formulario-peliculas/formulario-peliculas.component";
 import { SelectorMultipleDTO } from '../../compartidos/componentes/selector-multiple/SelectorMultipleModelo';
+import { actorAutocompleteDTO } from '../../actores/actores';
 
 @Component({
   selector: 'app-editar-pelicula',
@@ -32,6 +33,10 @@ export class EditarPeliculaComponent {
   cinesNoSeleccionados: SelectorMultipleDTO[] =[
     {llave: 1, valor: "Agora Mall"},
     {llave: 3, valor: "Acropolis"}
+  ]
+
+  actoresSeleccionados: actorAutocompleteDTO[]= [
+    {id: 2, nombre: 'Tom Hanks', personaje: 'Forrest Gump', foto: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Tom_Hanks_at_the_Elvis_Premiere_2022.jpg/220px-Tom_Hanks_at_the_Elvis_Premiere_2022.jpg'}
   ]
 
   guardarCambios(pelicula: PeliculasCreacionDTO){
