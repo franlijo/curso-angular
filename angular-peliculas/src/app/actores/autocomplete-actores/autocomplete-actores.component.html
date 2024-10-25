@@ -1,0 +1,18 @@
+<form >
+    <mat-form-field>
+        <input type="text" placeholder="Seleccione los actores" matInput [formControl]="control" [matAutocomplete]="auto"/>
+        <mat-autocomplete #auto (optionSelected)="actorSeleccionado($event)">
+            @for (actor of actores; track $index) {
+                <mat-option [value]="actor">
+                    <img [src]="actor.foto" />{{actor.nombre}}
+                </mat-option>
+            }
+
+        </mat-autocomplete>
+    </mat-form-field>
+</form>
+@if (actorSeleccionado.length>0) {
+    <table mat-table [dataSource]="actorSeleccionado" class="mat-elevation-z8">
+
+    </table>
+}
