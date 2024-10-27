@@ -1,42 +1,62 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
+using PeliculasAPI.DTOs;
 using PeliculasAPI.Entidades;
 
 namespace PeliculasAPI.Controllers
 {
     [Route("api/generos")]
+    [ApiController]
     public class GenerosController: ControllerBase
     {
-       [HttpGet("obtenerTodos")] 
-       public List<Genero> Get()
+        private readonly IOutputCacheStore outputCacheStore;
+        private readonly AplicationDbContext context;
+        private readonly IMapper mapper;
+        private const string cacheTag = "generos";
+    public GenerosController ( IOutputCacheStore outputCacheStore, AplicationDbContext context,
+     IMapper mapper ){
+        this.outputCacheStore = outputCacheStore;
+            this.context = context;
+            this.mapper = mapper;
+        }
+
+       [HttpGet] //api/generos
+       [OutputCache(Tags =[cacheTag])]
+       public List<GeneroDTO> Get()
        {
-            var repositorio = new RepositorioEnMemoria();
-            var generos = repositorio.ObtenerTodosLosGeneros();
-            return generos;
+            return new List<GeneroDTO>() {new GeneroDTO {Id=1, Nombre="Comedia"},
+                new GeneroDTO {Id=2, Nombre="Accion"}};
        }
 
-       [HttpGet("{id}")]
-       public Genero? Get(int id)
+       [HttpGet("{id:int}", Name = "ObtenerGeneroPorId")]  //api/generos/500
+       [OutputCache(Tags =[cacheTag])]
+       public async Task<ActionResult<GeneroDTO>> Get(int id)
        {
-         var repositorio = new RepositorioEnMemoria();
-         var genero = repositorio.ObtenerPodId(id);
-         return genero;
+            throw new NotImplementedException();
        }
 
        [HttpPost]
-       public void Post()
-       {
+       public async Task<IActionResult> Post([FromBody] GeneroCreacionDTO generoCreacionDTO)
+       {  
+          var genero = mapper.Map<Genero>(generoCreacionDTO);
+            context.Add(genero);
+            await context.SaveChangesAsync();
+            return CreatedAtRoute("ObtenerGeneroPorId", new {id = genero.Id}, genero);
 
        }
 
        [HttpPut]
        public void Put()
        {
+            throw new NotImplementedException();
 
        }
 
        [HttpDelete]
        public void Delete()
        {
+            throw new NotImplementedException();
 
        }
 

@@ -7,24 +7,36 @@ import { Router, RouterLink } from '@angular/router';
 import { primeraLetraMayuscula } from '../../compartidos/funciones/validaciones';
 import { FormularioGeneroComponent } from "../formulario-genero/formulario-genero.component";
 import { GeneroCreacionDTO } from '../generos';
+import { GenerosService } from '../generos.service';
+import { extraerErrores } from '../../compartidos/funciones/extraerErrores';
+import { MostrarErroresComponent } from "../../compartidos/componentes/mostrar-errores/mostrar-errores.component";
 
 @Component({
   selector: 'app-crear-generos',
   standalone: true,
-  imports: [RouterLink, MatFormFieldModule, ReactiveFormsModule, MatInputModule, MatButtonModule, FormularioGeneroComponent],
+  imports: [RouterLink, MatFormFieldModule, ReactiveFormsModule, MatInputModule, MatButtonModule, FormularioGeneroComponent, MostrarErroresComponent],
   templateUrl: './crear-generos.component.html',
   styleUrl: './crear-generos.component.scss'
 })
 export class CrearGenerosComponent {
 
   private router = inject(Router);
-
+  private generosServices = inject(GenerosService);
+  errores: string[] = [];
  
 
   guardarCambios(genero: GeneroCreacionDTO) {
     // .. guardar los cambios
     //this.router.navigate(['/generos']);
-    console.log('creando el genero: ', genero);
+    this.generosServices.crear(genero).subscribe({
+      next: () => {
+        this.router.navigate(['/generos']);
+      }, 
+      error: err => {
+        const errores = extraerErrores(err);
+        this.errores = errores;
+      }
+    });
     
   }
 
