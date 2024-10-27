@@ -4,12 +4,17 @@ using PeliculasAPI.Entidades;
 
 namespace PeliculasAPI.Utilidades
 {
-    public class AutoMapperProfiles: Profile
+    public class AutoMapperProfiles : Profile
     {
-        
-    }
-    private void ConfigurarMapeoGeneros()
-    {
-        CreateMap<GeneroCreacionDTO, Genero>();
+        public AutoMapperProfiles()
+        {
+            ConfigurarMapeoGeneros();
+
+        }
+        private void ConfigurarMapeoGeneros()
+        {
+            CreateMap<GeneroCreacionDTO, Genero>();
+            CreateMap<Genero, GeneroDTO>();
+        }
     }
 }
