@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using PeliculasAPI;
+using PeliculasAPI.Servicios;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +11,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
 builder.Services.AddAutoMapper(typeof(Program));
+
+builder.Services.AddDbContext<ApplicationDbContext>(opciones => 
+    opciones.UseSqlServer("name=DefaultConnection"));
 
 builder.Services.AddOutputCache(opciones =>
 {
@@ -24,9 +29,20 @@ builder.Services.AddCors(opciones =>
  {
          opciones.AddDefaultPolicy(opcionesCORS =>
          {
-             opcionesCORS.WithOrigins(origenesPermitidos).AllowAnyMethod().AllowAnyHeader();
+             opcionesCORS.WithOrigins(origenesPermitidos).AllowAnyMethod().AllowAnyHeader()
+             .WithExposedHeaders("Cantidad-total-registros");
          });
  });
+
+builder.Services.AddTransient<IAlmacenadorArchivos, AlmacenadorArchivosLocal>();
+
+//SI FUERA CON SERVIDOR AZURE
+//builder.Services.AddTransient<IAlmacenadorArchivos, AlmacenadorArchivosAzure>();
+
+builder.Services.AddHttpContextAccessor();
+
+
+
 
 var app = builder.Build();
 
@@ -34,11 +50,9 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-builder.Services.AddDbContext<AplicationDbContext>(opciones => 
-    opciones.UseSqlServer("name=DefaultConnection"));
-
-
 app.UseHttpsRedirection();
+
+app.UseStaticFiles();
 
 app.UseCors();
 
