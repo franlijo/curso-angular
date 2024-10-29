@@ -1,7 +1,7 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable, inject} from '@angular/core';
 import { environment } from '../../environments/environment.development';
-import { ActorCreacionDTO, ActorDTO } from './actores';
+import { actorAutocompleteDTO, ActorCreacionDTO, ActorDTO } from './actores';
 import { PaginacionDTO } from '../compartidos/modelos/PaginacionDTO';
 import { Observable } from 'rxjs';
 import { construirQueryParams } from '../compartidos/funciones/construirQueryParams';
@@ -25,6 +25,12 @@ export class ActoresService implements IServicioCRUD<ActorDTO, ActorCreacionDTO>
   {
     return this.http.get<ActorDTO>(`${this.urlBase}/${id})`);
   }
+
+  public obtenerPorNombre(nombre: string): Observable<actorAutocompleteDTO[]>{
+    return this.http.get<actorAutocompleteDTO[]>(`${this.urlBase}/${nombre}`);
+  }
+
+
 
   public actualizar(id:number, actor: ActorCreacionDTO){
     const formData = this.construirFormData(actor);
