@@ -323,3 +323,7 @@ C:\casa\curso-angular\PeliculasAPI\bin\Debug\net8.0\Azure.Storage.Blobs.dll
 C:\casa\curso-angular\PeliculasAPI\bin\Debug\net8.0\Azure.Storage.Common.dll
 C:\casa\curso-angular\PeliculasAPI\bin\Debug\net8.0\System.ClientModel.dll
 C:\casa\curso-angular\PeliculasAPI\bin\Debug\net8.0\System.IO.Hashing.dll
+C:\casa\curso-angular\PeliculasAPI\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite.dll
+C:\casa\curso-angular\PeliculasAPI\bin\Debug\net8.0\NetTopologySuite.dll
+C:\casa\curso-angular\PeliculasAPI\bin\Debug\net8.0\NetTopologySuite.IO.SqlServerBytes.dll
+C:\casa\curso-angular\PeliculasAPI\obj\Debug\net8.0\EFCoreSqlServerNetTopologySuite.cs

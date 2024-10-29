@@ -44,45 +44,20 @@ namespace PeliculasAPI.Controllers
        [HttpPost]
        public async Task<IActionResult> Post([FromBody] GeneroCreacionDTO generoCreacionDTO)
        {  
-          var genero = mapper.Map<Genero>(generoCreacionDTO);
-            context.Add(genero);
-            await context.SaveChangesAsync();
-            await outputCacheStore.EvictByTagAsync(cacheTag,default);
-            var GeneroDTO = mapper.Map<GeneroDTO>(genero);
-            return CreatedAtRoute("ObtenerGeneroPorId", new {id = genero.Id}, genero);
+         return await Post<GeneroCreacionDTO, Genero, GeneroDTO>(generoCreacionDTO, "ObtenerGeneroPorId");
 
        }
 
        [HttpPut("{id:int}")]
        public async Task<IActionResult> Put(int id, [FromBody] GeneroCreacionDTO generoCreacionDTO )
        {
-          var generoExiste = await context.Generos.AnyAsync(g => g.Id == id);
-          if (!generoExiste){
-               return NotFound();
-          }
-
-          var genero = mapper.Map<Genero>(generoCreacionDTO);
-          genero.Id = id;
-
-          context.Update(genero);
-          await context.SaveChangesAsync();
-          await outputCacheStore.EvictByTagAsync(cacheTag,default);
-
-          return NoContent();
- 
+         return await Put<GeneroCreacionDTO, Genero>(id, generoCreacionDTO);
        }
 
        [HttpDelete("{id:int}")]
        public async Task<IActionResult> Delete(int id)
        {
-            var registrosBorrados = await context.Generos.Where(g => g.Id == id).ExecuteDeleteAsync();
-          if (registrosBorrados == 0){
-               return NotFound();
-          }
-
-          await outputCacheStore.EvictByTagAsync(cacheTag,default);
-          return NoContent();
-
+         return await Delete<Genero>(id);
        }
 
        
