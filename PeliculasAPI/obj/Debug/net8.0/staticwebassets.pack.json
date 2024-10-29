@@ -1,0 +1,25 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\casa\\curso-angular\\PeliculasAPI\\wwwroot\\actores\\35253c84-3f5e-43b1-ad62-2b37964a1973.jfif",
+      "PackagePath": "staticwebassets\\actores\\35253c84-3f5e-43b1-ad62-2b37964a1973.jfif"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.PeliculasAPI.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.PeliculasAPI.props",
+      "PackagePath": "build\\PeliculasAPI.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.PeliculasAPI.props",
+      "PackagePath": "buildMultiTargeting\\PeliculasAPI.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.PeliculasAPI.props",
+      "PackagePath": "buildTransitive\\PeliculasAPI.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

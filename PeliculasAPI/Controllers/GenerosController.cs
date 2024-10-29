@@ -12,14 +12,16 @@ namespace PeliculasAPI.Controllers
 {
     [Route("api/generos")]
     [ApiController]
-    public class GenerosController: ControllerBase
+    public class GenerosController: CustomBaseControllers
     {
         private readonly IOutputCacheStore outputCacheStore;
         private readonly ApplicationDbContext context;
         private readonly IMapper mapper;
         private const string cacheTag = "generos";
     public GenerosController ( IOutputCacheStore outputCacheStore, ApplicationDbContext context,
-     IMapper mapper ){
+     IMapper mapper )
+          :base(context, mapper, outputCacheStore, cacheTag)
+          {
         this.outputCacheStore = outputCacheStore;
             this.context = context;
             this.mapper = mapper;
@@ -29,25 +31,14 @@ namespace PeliculasAPI.Controllers
        [OutputCache(Tags =[cacheTag])]
        public async Task<List<GeneroDTO>> Get([FromQuery] PaginacionDTO paginacion)
        {
-          var queryable = context.Generos;
-          await HttpContext.InsertarParametrosPaginacionEnCabecera(queryable);
-          return await queryable
-               .OrderBy(g => g.Nombre)
-               .Paginar(paginacion)
-               .ProjectTo<GeneroDTO>(mapper.ConfigurationProvider).ToListAsync();
+          return await Get<Genero, GeneroDTO>(paginacion, ordenarPor: g =>g.Nombre);
        }
 
        [HttpGet("{id:int}", Name = "ObtenerGeneroPorId")]  //api/generos/500
        [OutputCache(Tags =[cacheTag])]
        public async Task<ActionResult<GeneroDTO>> Get(int id)
        {
-            var genero = await context.Generos
-               .ProjectTo<GeneroDTO>(mapper.ConfigurationProvider)
-               .FirstOrDefaultAsync(g => g.Id == id);
-          if ( genero is null){
-               return NotFound();
-          }
-          return genero; 
+          return await Get<Genero, GeneroDTO>(id);
        }
 
        [HttpPost]
@@ -57,6 +48,7 @@ namespace PeliculasAPI.Controllers
             context.Add(genero);
             await context.SaveChangesAsync();
             await outputCacheStore.EvictByTagAsync(cacheTag,default);
+            var GeneroDTO = mapper.Map<GeneroDTO>(genero);
             return CreatedAtRoute("ObtenerGeneroPorId", new {id = genero.Id}, genero);
 
        }

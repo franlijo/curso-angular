@@ -1,1 +1,1 @@
-{"ContentRoots":["C:\\casa\\curso-angular\\PeliculasAPI\\wwwroot\\"],"Root":{"Children":null,"Asset":null,"Patterns":[{"ContentRootIndex":0,"Pattern":"**","Depth":0}]}}
+{"ContentRoots":["C:\\casa\\curso-angular\\PeliculasAPI\\wwwroot\\"],"Root":{"Children":{"actores":{"Children":{"35253c84-3f5e-43b1-ad62-2b37964a1973.jfif":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"actores/35253c84-3f5e-43b1-ad62-2b37964a1973.jfif"},"Patterns":null}},"Asset":null,"Patterns":null}},"Asset":null,"Patterns":[{"ContentRootIndex":0,"Pattern":"**","Depth":0}]}}

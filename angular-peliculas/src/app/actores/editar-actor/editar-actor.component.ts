@@ -6,38 +6,26 @@ import { Router } from '@angular/router';
 import { extraerErrores } from '../../compartidos/funciones/extraerErrores';
 import { MostrarErroresComponent } from "../../compartidos/componentes/mostrar-errores/mostrar-errores.component";
 import { CargandoComponent } from "../../compartidos/componentes/cargando/cargando.component";
+import { EditarEntidadComponent } from "../../compartidos/componentes/editar-entidad/editar-entidad.component";
+import { SERVICIO_CRUD_TOKEN } from '../../compartidos/proveedores/proveedores';
 
 @Component({
   selector: 'app-editar-actor',
   standalone: true,
-  imports: [FormularioActoresComponent, MostrarErroresComponent, CargandoComponent],
+  imports: [FormularioActoresComponent, MostrarErroresComponent, CargandoComponent, EditarEntidadComponent],
   templateUrl: './editar-actor.component.html',
-  styleUrl: './editar-actor.component.scss'
+  styleUrl: './editar-actor.component.scss', 
+  providers: [
+    {provide: SERVICIO_CRUD_TOKEN, useClass: ActoresService}
+  ]
 })
-export class EditarActorComponent implements OnInit{
-  ngOnInit(): void {
-    this.actoresService.obtenerPorId(this.id).subscribe(actor => {
-      this.actor = actor;
-    })
-  }
+export class EditarActorComponent {
+
   @Input({transform: numberAttribute})
   id!: number;
-  actor?: ActorDTO;
-  actoresService = inject(ActoresService);
-  router = inject(Router);
-  errores: string[]=[];
 
-  guardarCambios(actor: ActorCreacionDTO){
-    this.actoresService.actualizar(this.id, actor).subscribe({
-        next: () => {
-          this.router.navigate(['/actores']);
-        },
-        error: err => {
-          const errores = extraerErrores(err);
-          this.errores = errores;
-        }
-    })
-  }
+  formularioActores = FormularioActoresComponent;
+
 
 
 }

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "TgT6f/19Id+FmzvK4LjaeFSes2uZs5xjqq/zMlZLE2c=",
+  "Hash": "spULkJ7muAucF29s1t8E9VxKrESXLuMB8cNBTkhiOJE=",
   "Source": "PeliculasAPI",
   "BasePath": "_content/PeliculasAPI",
   "Mode": "Default",
@@ -15,5 +15,25 @@
       "Pattern": "**"
     }
   ],
-  "Assets": []
+  "Assets": [
+    {
+      "Identity": "C:\\casa\\curso-angular\\PeliculasAPI\\wwwroot\\actores\\35253c84-3f5e-43b1-ad62-2b37964a1973.jfif",
+      "SourceId": "PeliculasAPI",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\casa\\curso-angular\\PeliculasAPI\\wwwroot\\",
+      "BasePath": "_content/PeliculasAPI",
+      "RelativePath": "actores/35253c84-3f5e-43b1-ad62-2b37964a1973.jfif",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\actores\\35253c84-3f5e-43b1-ad62-2b37964a1973.jfif"
+    }
+  ]
 }

@@ -1,8 +1,9 @@
 using System.ComponentModel.DataAnnotations;
+using PeliculasAPI.Entidades;
 
 namespace PeliculasAPI.DTOs
 {
-    public class GeneroDTO
+    public class GeneroDTO: IId
     {
         public int Id {get;set;}
         public required string Nombre { get; set; }
