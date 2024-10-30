@@ -4,7 +4,7 @@ import { IndiceGenerosComponent } from './generos/indice-generos/indice-generos.
 import { CrearGenerosComponent } from './generos/crear-generos/crear-generos.component';
 import { IndiceActoresComponent } from './actores/indice-actores/indice-actores.component';
 import { CrearActorComponent } from './actores/crear-actor/crear-actor.component';
-import { IndiceCineComponent } from './cines/indice-cine/indice-cine.component';
+import { IndiceCinesComponent } from './cines/indice-cines/indice-cines.component';
 import { CrearCineComponent } from './cines/crear-cine/crear-cine.component';
 import { CrearPeliculaComponent } from './pelicula/crear-pelicula/crear-pelicula.component';
 import { EditarGeneroComponent } from './generos/editar-genero/editar-genero.component';
@@ -21,7 +21,7 @@ export const routes: Routes = [
     {path: 'actores', component: IndiceActoresComponent},
     {path: 'actores/crear', component: CrearActorComponent},
     {path: 'actores/editar/:id', component: EditarActorComponent},
-    {path: 'cines', component: IndiceCineComponent},
+    {path: 'cines', component: IndiceCinesComponent},
     {path: 'cines/crear', component: CrearCineComponent},
     {path: 'cines/editar/:id', component: EditarCineComponent},
     {path: 'peliculas/crear', component: CrearPeliculaComponent},
