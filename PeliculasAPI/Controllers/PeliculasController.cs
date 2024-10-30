@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using PeliculasAPI.DTOs;
 using PeliculasAPI.Entidades;
 using PeliculasAPI.Servicios;
+using PeliculasAPI.Utilidades;
 
 namespace PeliculasAPI.Controllers
 {
@@ -78,6 +79,43 @@ namespace PeliculasAPI.Controllers
 
         }
 
+        [HttpGet("filtrar")]
+        public async Task<ActionResult<List<PeliculaDTO>>> Filtrar([FromQuery] PeliculasFiltrarDTO peliculasFiltrarDTO)
+        {
+            var peliculasQueryable = context.Peliculas.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(peliculasFiltrarDTO.Titulo))
+            {
+                peliculasQueryable = peliculasQueryable.Where(p=>p.Titulo.Contains(peliculasFiltrarDTO.Titulo));
+            }
+
+            if (peliculasFiltrarDTO.EnCines)
+            {
+                peliculasQueryable = peliculasQueryable.Where(p =>
+                p.PeliculasCines.Select(pc=>pc.PeliculaId).Contains(p.Id));
+            }
+
+            if (peliculasFiltrarDTO.ProximosEstrenos)
+            {
+                var hoy = DateTime.Today;
+                peliculasQueryable = peliculasQueryable.Where(p=>p.FechaLanzamiento>hoy);
+            }
+
+            if (peliculasFiltrarDTO.GeneroId !=0)
+            {
+                peliculasQueryable = peliculasQueryable
+                    .Where(p=>p.PeliculasGeneros.Select(pg => pg.GeneroId).Contains(peliculasFiltrarDTO.GeneroId));
+            }
+
+            await HttpContext.InsertarParametrosPaginacionEnCabecera(peliculasQueryable);
+
+            var peliculas = await peliculasQueryable.Paginar(peliculasFiltrarDTO.Paginacion)
+                .ProjectTo<PeliculaDTO>(mapper.ConfigurationProvider)
+                .ToListAsync();
+
+            return peliculas;
+
+        }   
             
 
 
@@ -93,6 +131,8 @@ namespace PeliculasAPI.Controllers
                 Generos = generos
             };
         }
+
+
         [HttpPost]
         public async Task<IActionResult> Post([FromForm] PeliculaCreacionDTO peliculaCreacionDTO)
         {
@@ -182,6 +222,11 @@ namespace PeliculasAPI.Controllers
                     pelicula.PeliculasActores[i].Orden = i;
                 }
             }
+        }
+        [HttpDelete("{id: int}")]
+        public async Task<IActionResult> Delete (int id)
+        {
+            return await Delete<Pelicula>(id);
         }
     }
 }

@@ -328,3 +328,9 @@ C:\casa\curso-angular\PeliculasAPI\bin\Debug\net8.0\NetTopologySuite.dll
 C:\casa\curso-angular\PeliculasAPI\bin\Debug\net8.0\NetTopologySuite.IO.SqlServerBytes.dll
 C:\casa\curso-angular\PeliculasAPI\obj\Debug\net8.0\EFCoreSqlServerNetTopologySuite.cs
 C:\casa\curso-angular\PeliculasAPI\bin\Debug\net8.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\casa\curso-angular\PeliculasAPI\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\casa\curso-angular\PeliculasAPI\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\casa\curso-angular\PeliculasAPI\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\casa\curso-angular\PeliculasAPI\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\casa\curso-angular\PeliculasAPI\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
+C:\casa\curso-angular\PeliculasAPI\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll

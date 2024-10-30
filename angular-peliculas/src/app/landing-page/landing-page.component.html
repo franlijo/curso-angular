@@ -1,7 +1,14 @@
+<div>Estas autorizado</div>
+<div>No estas autorizado</div>
+
+
+
+
+
 <h2>En Cines</h2>
 
-<app-listado-peliculas [peliculas]="peliculasEnCines"></app-listado-peliculas>
+<app-listado-peliculas [peliculas]="peliculasEnCines" (borrado)="peliculaBorrada()"></app-listado-peliculas>
 
 <h2>Proximamente en cines</h2>
 
-<app-listado-peliculas [peliculas]="peliculasProximosEstrenos"></app-listado-peliculas>
+<app-listado-peliculas [peliculas]="peliculasProximosEstrenos" (borrado)="peliculaBorrada()"></app-listado-peliculas>

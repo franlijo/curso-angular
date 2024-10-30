@@ -1,9 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { Observable } from 'rxjs';
 import { LandingPageDTO, PeliculaDTO, PeliculasCreacionDTO, PeliculasPostGetDTO, PeliculasPutGetDTO } from './peliculas';
 import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
+import { GeneroDTO } from '../generos/generos';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,14 @@ export class PeliculasService {
     return this.http.get<LandingPageDTO>(`${this.urlBase}/postget`);
   }
 
+  public obtenerPorId(id: number): Observable<PeliculaDTO>{
+    return this.http.get<PeliculaDTO>(`${this.urlBase}/${id}`);
+  }
+
+  public filtrar(valores: any): Observable<HttpResponse<PeliculaDTO[]>>{
+    const params = new HttpParams({fromObject:valores});
+    return this.http.get<PeliculaDTO[]>(`${this.urlBase}/filtrar`, {params, observe: 'response'});
+  }
 
   public crearGet(): Observable<PeliculasPostGetDTO>{
     return this.http.get<PeliculasPostGetDTO>(`${this.urlBase}/postget`);
@@ -39,6 +48,10 @@ export class PeliculasService {
     return this.http.put(`${this.urlBase}/${id}`, formData);
   }
 
+  public borrar(id:number){
+    return this.http.delete(`${this.urlBase}/${id}`);
+
+  }
 
 
   private construirFormData(pelicula: PeliculasCreacionDTO): FormData{
