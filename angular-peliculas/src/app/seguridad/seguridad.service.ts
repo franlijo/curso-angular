@@ -1,8 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
-import { CredencialesUsuarioDTO, RespuestaAutenticacionDTO } from './seguridad';
+import { CredencialesUsuarioDTO, RespuestaAutenticacionDTO, UsuarioDto } from './seguridad';
 import { Observable, tap } from 'rxjs';
+import { PaginacionDTO } from '../compartidos/modelos/PaginacionDTO';
+import { construirQueryParams } from '../compartidos/funciones/construirQueryParams';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +18,25 @@ export class SeguridadService {
   private readonly llaveToken ='token';
   private readonly llaveExpiracion = 'token-expiracion';
 
+  
+  obtenerUsuariosPaginados(paginacion: PaginacionDTO): Observable<HttpResponse<UsuarioDto[]>>{
+    let queryParams = construirQueryParams(paginacion);
+    return this.http.get<UsuarioDto[]>(`${this.urlBase}/ListadoUsuarios`,{params: queryParams, observe: 'response'});
+  }
+
+  hacerAdmin(email: string){
+    return this.http.post(`${this.urlBase}/haceradmin`,{email});
+  }
+
+  removerAdmin(email: string){
+    return this.http.post(`${this.urlBase}/removeradmin`,{email});
+  }
+
+
+  obtenerToken(): string | null {
+    return localStorage.getItem(this.llaveToken);
+  }
+
   registrar(credenciales: CredencialesUsuarioDTO): Observable<RespuestaAutenticacionDTO>{
     return this.http.post<RespuestaAutenticacionDTO>(`${this.urlBase}/registrar`, credenciales)
     .pipe(
@@ -28,6 +49,13 @@ export class SeguridadService {
     .pipe(
       tap(respuestaAutenticacion => this.guardarToken(respuestaAutenticacion))
     )
+  }
+
+  obtenerCampoJWT(campo: string): string {
+    const token = localStorage.getItem(this.llaveToken);
+    if (!token){return ''}
+    var dataToken = JSON.parse(atob(token.split('.')[1]))
+    return dataToken[campo];
   }
 
   guardarToken(respuestaAutenticacion: RespuestaAutenticacionDTO){
@@ -54,5 +82,14 @@ export class SeguridadService {
   logout() {
     localStorage.removeItem(this.llaveToken);
     localStorage.removeItem(this.llaveExpiracion);
+  }
+
+  obtenerRol(): string {
+    const esAdmin = this.obtenerCampoJWT('esadmin');
+    if (esAdmin){
+      return 'admin';
+    } else {
+      return '';
+    }
   }
 }
